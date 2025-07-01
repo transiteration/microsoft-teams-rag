@@ -87,7 +87,7 @@ The `ingest` service is configured by default to use a GPU for loading and parsi
 
 This will start three services:
 -   `qdrant-db`: The vector database.
--   `ingest`: The data ingestion service. It runs on a loop, checking for new data every 300 seconds.
+-   `ingest`: The data ingestion service.
 -   `bot`: The Telegram bot service.
 
 ### Notes on Ingestion Scheduling
