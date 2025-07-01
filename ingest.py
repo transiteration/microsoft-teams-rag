@@ -102,6 +102,9 @@ def embed_and_upsert_chunks(
     chunks: list[Document],
     task_type: str,
     qdrant_batch_size: int = 100,
+    channel_name: str = None,
+    channel_index: int = None,
+    total_channels: int = None,
 ):
     """
     Embeds document chunks in batches and upserts them into Qdrant.
@@ -114,11 +117,15 @@ def embed_and_upsert_chunks(
     points_to_upsert = []
     total_chunks = len(chunks)
 
+    log_prefix = ""
+    if channel_name and channel_index is not None and total_channels is not None:
+        log_prefix = f"[{channel_index}/{total_channels}] Channel '{channel_name}': "
+
     for i in range(0, total_chunks, EMBEDDING_BATCH_SIZE):
         batch_chunks = chunks[i : i + EMBEDDING_BATCH_SIZE]
         texts_to_embed = [chunk.page_content for chunk in batch_chunks]
         logging.info(
-            f"  Processing batch {i // EMBEDDING_BATCH_SIZE + 1}/{-(-total_chunks // EMBEDDING_BATCH_SIZE)} (chunks {i + 1}-{min(i + EMBEDDING_BATCH_SIZE, total_chunks)})..."
+            f"  {log_prefix}Processing batch {i // EMBEDDING_BATCH_SIZE + 1}/{-(-total_chunks // EMBEDDING_BATCH_SIZE)} (chunks {i + 1}-{min(i + EMBEDDING_BATCH_SIZE, total_chunks)})..."
         )
         try:
             response = genai_client.models.embed_content(
@@ -416,6 +423,9 @@ def ingest_files(client: QdrantClient, genai_client: genai.Client):
                 genai_client=genai_client,
                 chunks=channel_chunks_to_process,
                 task_type="RETRIEVAL_DOCUMENT",
+                channel_name=channel_name,
+                channel_index=i,
+                total_channels=num_channels_to_process,
             )
             total_files_processed += len(files_in_channel)
             total_chunks_ingested += len(channel_chunks_to_process)
@@ -686,6 +696,9 @@ def ingest_threads(client: QdrantClient, genai_client: genai.Client):
                 genai_client=genai_client,
                 chunks=chunks,
                 task_type="RETRIEVAL_DOCUMENT",
+                channel_name=channel_name,
+                channel_index=i,
+                total_channels=num_channels_to_process,
             )
             total_threads_processed += len(docs_for_channel)
             total_chunks_ingested += len(chunks)
