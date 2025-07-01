@@ -1,0 +1,45 @@
+services:
+  qdrant-db:
+    image: qdrant/qdrant
+    container_name: qdrant-db
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_data:/qdrant/storage:z
+
+  ingest:
+    container_name: teams-ingest
+    build:
+      context: .
+      dockerfile: Dockerfiles/ingest.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./state:/app/state
+    depends_on:
+      - qdrant-db
+    network_mode: host
+    # The following section is for GPU acceleration.
+    # If you are running on a CPU-only machine, comment out or remove this 'deploy' block.
+    # Also, make sure to update the base image in Dockerfiles/ingest.Dockerfile.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  bot:
+    container_name: teams-bot
+    build:
+      context: .
+      dockerfile: Dockerfiles/bot.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - qdrant-db
+    network_mode: host

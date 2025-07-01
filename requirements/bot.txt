@@ -1,0 +1,8 @@
+dotenv==0.9.9
+google-genai==1.23.0
+langchain==0.3.26
+qdrant-client==1.14.3
+pydantic==2.11.7
+python-telegram-bot==22.2
+langgraph==0.5.0
+langchain-google-genai==2.1.6
