@@ -142,4 +142,4 @@ All configuration is managed through the `.env` file.
 
 ---
 
-> **Note:** If you are planning to use this system within your own company and require enhanced data privacy, it is recommended to use an Azure Bot instead of Telegram. Azure Bot provides better integration and data protection within the Microsoft ecosystem.
+> **Note:** If you are planning to use this system within your own company and require enhanced data privacy, it is recommended to use an Azure Bot integrated within Microsoft Teams instead of Telegram.
