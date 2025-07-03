@@ -11,10 +11,13 @@ A RAG system that ingests data from Microsoft Teams (files and message threads) 
 
 ### Demo
 
+#### Microsoft Teams posted Threads and Files:
 <div style="display: flex; gap: 10px;">
   <img src="assets/teams_1.jpeg" width="500"/>
   <img src="assets/teams_2.jpeg" width="500"/>
 </div>
+
+#### Interaction with Bot:
 <div style="display: flex; gap: 10px; margin-top: 10px;">
   <img src="assets/tg_1.jpeg" width="300"/>
   <img src="assets/tg_2.jpeg" width="300"/>
