@@ -139,3 +139,7 @@ All configuration is managed through the `.env` file.
 ### Telegram Variables
 -   `TELEGRAM_BOT_TOKEN`: Your token for the Telegram bot, obtained from BotFather.
 -   `MAX_HISTORY_MESSAGES`: The number of user/assistant message pairs to retain in the conversation history for context.
+
+---
+
+> **Note:** If you are planning to use this system within your own company and require enhanced data privacy, it is recommended to use an Azure Bot instead of Telegram. Azure Bot provides better integration and data protection within the Microsoft ecosystem.
