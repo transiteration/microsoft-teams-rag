@@ -3,12 +3,14 @@
 A RAG system that ingests data from Microsoft Teams (files and message threads) into a Qdrant vector database and provides a question-answering interface via a Telegram bot.
 
 ## Features
-
+-   **RAG Pipeline**: Implements a LangGraph-based pipeline that includes query classification, query transformation, document grading, and generation.
 -   **Data Ingestion**: Periodically scans MS Teams channels for new or updated files and message threads.
+-   **Vector Storage**: Stores and indexes embeddings created by Google's Gemini models in a Qdrant vector database for information retrieval.
 -   **Automatic Vector Database Sync**: Keeps the Qdrant vector database up-to-date by detecting and reflecting changes in Teams:
     -   Updates or message threads and replies if they are edited or deleted in Teams.
     -   Updates files if they are changed in OneDrive or removed from a channel.
-
+-   **Conversational AI**: A Telegram bot that answers by providing links to the sources to user's questions based on the ingested data.
+-   **GPU Support**: Can leverage GPU acceleration for document parsing with Docling
 ### Demo
 
 #### Microsoft Teams posted Threads and Files:
