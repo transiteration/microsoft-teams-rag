@@ -13,4 +13,4 @@ COPY ingest.py ./
 COPY gcloud_credentials.json /app/gcloud_credentials.json
 ENV GOOGLE_APPLICATION_CREDENTIALS /app/gcloud_credentials.json
 
-CMD ["sh", "-c", "while true; do python ingest.py; sleep 300; done"]
+CMD ["sh", "-c", "while true; do python ingest.py; sleep 3600; done"]
